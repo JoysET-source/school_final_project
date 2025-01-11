@@ -8,7 +8,6 @@ class RicettaBase(BaseModel):
 class RicettaCreate(RicettaBase):
     nome_ricetta: str
 
-
 class Ricetta(RicettaBase):
     nome_ricetta: str
 

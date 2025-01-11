@@ -8,7 +8,7 @@ from src.models import Ricette
 
 router = APIRouter(prefix="/Ricetta", tags=["RICETTE"])
 
-"""write recipes"""
+# """write recipes"""
 @router.post("/crea ricetta/", response_model=RicetteSchemas)
 def scrivi_ricetta(ricetta: RicettaCreate, db: Session = Depends(get_db)):
     db_ricetta = db.query(Ricette).filter(Ricette.nome_ricetta == ricetta.nome_ricetta).first()
@@ -25,7 +25,7 @@ def scrivi_ricetta(ricetta: RicettaCreate, db: Session = Depends(get_db)):
     db.refresh(db_ricetta)
     return db_ricetta
 
-"""cerca per nome"""
+# """cerca per nome"""
 @router.get("/cerca ricetta/", response_model=RicetteSchemas)
 def trova_ricetta(nome_ricetta: str, db: Session = Depends(get_db)):
     db_ricetta = db.query(Ricette).filter(Ricette.nome_ricetta == nome_ricetta).first()
@@ -33,9 +33,10 @@ def trova_ricetta(nome_ricetta: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Ricetta non trovata")
     return db_ricetta
 
-@router.get("/cerca per calorie/", response_model=List[RicetteSchemas])
-def apporto_calorie(kcal: int, db: Session = Depends(get_db)):
-    pass
+# """cerca per calorie"""
+# @router.get("/cerca per calorie/{nome_ricetta}", response_model=List[RicetteSchemas])
+# def apporto_calorie(kcal: int, db: Session = Depends(get_db)):
+#     pass
 
 
 
