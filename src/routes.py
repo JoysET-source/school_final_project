@@ -8,6 +8,7 @@ from src.models import Ricette
 
 router = APIRouter(prefix="/Ricetta", tags=["RICETTE"])
 
+"""write recipes"""
 @router.post("/crea ricetta/", response_model=RicetteSchemas)
 def scrivi_ricetta(ricetta: RicettaCreate, db: Session = Depends(get_db)):
     db_ricetta = db.query(Ricette).filter(Ricette.nome_ricetta == ricetta.nome_ricetta).first()
@@ -15,16 +16,28 @@ def scrivi_ricetta(ricetta: RicettaCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Ricetta gia esistente")
     db_ricetta = Ricette(
         nome_ricetta=ricetta.nome_ricetta,
-        ingredienti_proteici=ricetta.ingredienti_proteici,
-        carboidrati=ricetta.carboidrati,
-        verdure_legumi=ricetta.verdure_legumi,
-        ingredienti_grassi=ricetta.ingredienti_grassi,
-        condimenti=ricetta.condimenti
+        ingredienti=ricetta.ingredienti,
+        kcal=ricetta.kcal
     )
     db.add(db_ricetta)
     db.commit()
     db.refresh(db_ricetta)
     return db_ricetta
+
+"""cerca per nome"""
+@router.get("/cerca ricetta/", response_model=RicetteSchemas)
+def trova_ricetta(nome_ricetta: str, db: Session = Depends(get_db)):
+    db_ricetta = db.query(Ricette).filter(Ricette.nome_ricetta == nome_ricetta).first()
+    if db_ricetta is None:
+        raise HTTPException(status_code=404, detail="Ricetta non trovata")
+    return db_ricetta
+
+@router.get("/cerca per calorie/", response_model=List[RicetteSchemas])
+def apporto_calorie(kcal: int, db: Session = Depends(get_db)):
+    pass
+
+
+
 
 
 

@@ -7,11 +7,9 @@ class Ricette(Base):
     __tablename__ = "Ricette"
 
     nome_ricetta = Column(String, primary_key=True, index=True)
-    ingredienti_proteici = Column(String, unique=True, index=True)
-    carboidrati = Column(String,  unique=True, index=True)
-    verdure_legumi = Column(String, unique=True, index=True)
-    ingredienti_grassi = Column(String, unique=True, index=True)
-    condimenti = Column(String, unique=True, index=True)
+    ingredienti = Column(String, unique=True, index=True)
+    kcal = Column(Integer, unique=True, index=True)
+
 
 # def valida_valore(value):
 #     if isinstance(value, str):
