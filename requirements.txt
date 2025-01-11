@@ -1,6 +1,6 @@
 # Activating venv
-# python -m venv venv_name
-# venv_name\Scripts\activate
+# python -m venv SFLvenv
+# SFLvenv\Scripts\activate
 
 # Installing requirements
 # pip install -r requirements.txt
