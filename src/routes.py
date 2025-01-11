@@ -18,7 +18,8 @@ def scrivi_ricetta(ricetta: RicettaCreate, db: Session = Depends(get_db)):
         nome_ricetta=ricetta.nome_ricetta,
         ingredienti=ricetta.ingredienti,
         kcal=ricetta.kcal
-    )
+        )
+
     db.add(db_ricetta)
     db.commit()
     db.refresh(db_ricetta)
